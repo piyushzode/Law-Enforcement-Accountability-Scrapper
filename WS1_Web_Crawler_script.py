@@ -16,12 +16,13 @@ from datetime import datetime
 #              "1w": "8",
 #              "30d": "9"}
 
-list_of_search_terms = ["police misconduct", "officer arrested", "officer charged", "officer fired",
-                        "officer terminated", "officer disciplinary", "police lawsuit", "police settlement",
-                        "sheriff lawsuit", "sheriff arrested", "sheriff charged", "deputy fired", "deputy arrested",
-                        "police sued", "sheriff sued", "racial bias", "officer racism", "sheriff racism",
-                        "illegal search", "excessive force", "false arrest", "wrong door raid", "police civil case",
-                        "sheriff civil case", "police brutality"]
+list_of_search_terms = ["police misconduct"]
+#, "officer arrested", "officer charged", "officer fired",
+#                        "officer terminated", "officer disciplinary", "police lawsuit", "police settlement",
+#                        "sheriff lawsuit", "sheriff arrested", "sheriff charged", "deputy fired", "deputy arrested",
+#                        "police sued", "sheriff sued", "racial bias", "officer racism", "sheriff racism",
+#                       "illegal search", "excessive force", "false arrest", "wrong door raid", "police civil case",
+#                        "sheriff civil case", "police brutality"]
 
 url = 'https://www.bing.com/news/infinitescrollajax?q={0}&qft=interval%3d"7"&first={1}&infinitescroll=1'
 compiled_urls = {}
@@ -103,17 +104,17 @@ for search_word in compiled_urls:
         # Combine list items into string.
         article = ' '.join(sentence_list)
 
-        row = [search_word, url, headline, article]
+        row = [search_word, url, headline.strip().rstrip(), article.replace(',','').strip().rstrip()]
         rows.append(row)
 
 # Get a timestamp for the csv
 timestamp = datetime.now()
-
 fields = ["Search Term", "Source", "Title", "Article Content"]
-filename = timestamp.strftime("ws1_web_crawler_results_%Y-%m-%d_%H:%M:%S.csv")
+#filename = timestamp.strftime("ws1_web_crawler_results_%Y-%m-%d_%H_%M_%S.csv")
+filename = "ws1_web_crawler_results.csv" 
 
 # Write out to csv
-with open(filename, 'w') as csvfile:
+with open(filename, 'w', encoding='utf-8', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
     csvwriter.writerows(rows)
