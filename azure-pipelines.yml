@@ -34,7 +34,7 @@ steps:
   artifact: 'ws1_web_crawler_results.csv'
 - task: GitHubRelease@1
   inputs:
-    gitHubConnection: 'piyushzode'
+    gitHubConnection: 'github.com_piyushzode'
     repositoryName: '$(Build.Repository.Name)'
     action: 'create'
     target: '$(Build.SourceVersion)'
